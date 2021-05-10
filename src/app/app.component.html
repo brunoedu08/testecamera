@@ -19,7 +19,7 @@
             <div *ngIf="permitirCamera && !tirarFoto">
                 <br>
                 <div style="text-align:center">
-                    <webcam [trigger]="triggerObservable" [height]="500" [width]="500"
+                    <webcam [trigger]="triggerObservable" [height]="400" [width]="400"
                         (imageCapture)="handleImage($event)">-
                     </webcam>
                 </div>
