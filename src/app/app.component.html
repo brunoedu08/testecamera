@@ -1,14 +1,55 @@
 <div>
-<webcam [height]="400" 
-        [width]="1000" 
-        [trigger]="triggerObservable"
-            (imageCapture)="handleImage($event)">
- </webcam>
-  
-<button class="actionBtn" (click)="triggerSnapshot();">
-    Click Here and take the Shot</button>
-  
-<div class="snapshot" *ngIf="webcamImage">
-  <h2>Here is your image!</h2>
-  <img [src]="webcamImage.imageAsDataUrl"/>
+    <div class="card">
+        <div class="text-center">
+            <div *ngIf="!permitirCamera && !tirarFoto" class="snapshot mt-4 ml-4 mr-4 mb-4">
+                <img class="img-fluid center-block" src="/assets/images/preview-foto.png" height="375" width="500"
+                    alt="image">
+
+                <p class="card-text mt-4 ml-4 mr-4 mb-4 text-center font-weight-bold h5">
+                    Acesso à sua câmera
+                </p>
+                <p class="card-text mt-4 ml-4 mr-4 mb-4 text-center h5">
+                    Vamos precisar tirar algumas fotos, mas para isso, precisamos acessar a sua câmera.
+                </p>
+                <button class="btn btn-primary" (click)="autorizarCamera()">
+                    Permitir
+                </button>
+
+            </div>
+            <div *ngIf="permitirCamera && !tirarFoto">
+                <br>
+                <div style="text-align:center">
+                    <webcam [trigger]="triggerObservable" [height]="325" [width]="325"
+                        (imageCapture)="handleImage($event)">-
+                    </webcam>
+                </div>
+                <div class="col-12 col-md-4 offset-md-4">
+                    <button class="btn btn-primary" (click)="triggerSnapshot();">Tirar Foto</button>
+                </div>
+
+            </div>
+            <div class="snapshot mt-4 ml-4 mr-4 mb-4" *ngIf="webcamImage">
+                <p class="card-text mt-4 ml-4 mr-4 mb-4 text-center font-weight-bold h5">
+                    Você consegue ler todas as informações na foto?
+                </p>
+                <p class="card-text mt-4 ml-4 mr-4 mb-4 text-center h5">
+                    Se não conseguir, nós também não conseguiremos
+                </p>
+                <img class="img-fluid" [src]="webcamImage.imageAsDataUrl" [height]="375" [width]="500" />
+                <br><br>
+                <div class="row actions">
+                    <div class="col-12 offset-md-2 offset-lg-2 col-md-4 col-lg-4 pb-3">
+                        <button class="btn btn-primary" (click)="salvarFotoFrente()">
+                            Sim, está tudo legível
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <button class="btn btn-primary" (click)="tirarOutraFoto()">
+                            Tirar outra foto
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
